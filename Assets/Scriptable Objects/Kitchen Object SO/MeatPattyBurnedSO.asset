@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e0b6f3628db37e419eed7c6f7413ac1, type: 3}
+  m_Name: MeatPattyBurnedSO
+  m_EditorClassIdentifier: Assembly-CSharp::KitchenObjectsSO
+  ObjectName: Meat Patty Burned
+  ObjectIcon: {fileID: 21300000, guid: 9187000ca5a755548b2122b7bc9ec116, type: 3}
+  ObjectPrefab: {fileID: 1109806700765322981, guid: 945a8cb2d0a7ead4da6b7cdea9ab4aab, type: 3}
