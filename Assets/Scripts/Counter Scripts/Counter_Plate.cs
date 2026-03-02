@@ -39,11 +39,13 @@ public class Counter_Plate : Counter_Base
             }
             else
             {
+                AlertMessagesManager.Instance.DisplayAlertMessage("No plates available!");
                 Debug.Log("No plates available!");
             }
         }
         else
         {
+            AlertMessagesManager.Instance.DisplayAlertMessage("Player is already holding something!");
             Debug.Log("Player is already holding something!");
         }
     }

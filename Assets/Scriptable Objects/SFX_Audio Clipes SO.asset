@@ -15,7 +15,7 @@ MonoBehaviour:
   PlayerFootstep: {fileID: 8300000, guid: 078e15982fce2e147bf06c8a7682f28b, type: 3}
   ObjectPickup: {fileID: 8300000, guid: 668de61a04ca5914aa745f8712c62720, type: 3}
   ObjectDrop: {fileID: 8300000, guid: 9c88983fa5906dc41944ec5a43b6b5c7, type: 3}
-  DeliverySucess: {fileID: 8300000, guid: 50205ffe58351d244bbcbd725dbfa802, type: 3}
+  DeliverySuccess: {fileID: 8300000, guid: 50205ffe58351d244bbcbd725dbfa802, type: 3}
   DeliveryFailed: {fileID: 8300000, guid: 6a936576e1e30a640844535c71d5a149, type: 3}
   StoveSizzles: {fileID: 8300000, guid: 511c1cbfb8b48b64083aec78fe17115f, type: 3}
   Trash: {fileID: 8300000, guid: 4b70ec0f0afb9ac4ea7dfea07aca4eb4, type: 3}

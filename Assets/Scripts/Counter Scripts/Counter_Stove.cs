@@ -127,11 +127,13 @@ public class Counter_Stove : Counter_Base
                     }
                     else
                     {
+                        AlertMessagesManager.Instance.DisplayAlertMessage("Object can not be Fried!");
                         Debug.Log("Object can not be Fried!");
                     }
                 }
                 else
                 {
+                    AlertMessagesManager.Instance.DisplayAlertMessage("Nothing to fry!");
                     Debug.Log("Nothing to fry!");
                 }
             }
@@ -160,6 +162,7 @@ public class Counter_Stove : Counter_Base
                     }
                     else
                     {
+                        AlertMessagesManager.Instance.DisplayAlertMessage("Counter if Full!");
                         Debug.Log("Counter if Full!");
                     }
                 }
@@ -189,6 +192,7 @@ public class Counter_Stove : Counter_Base
             }
             else
             {
+                AlertMessagesManager.Instance.DisplayAlertMessage("Insufficient Money!");
                 Debug.Log("Insufficient Money!");
             }
         }

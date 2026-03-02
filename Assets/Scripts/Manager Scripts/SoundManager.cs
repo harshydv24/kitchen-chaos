@@ -14,7 +14,7 @@ public class SoundManager : MonoBehaviour
 
     private void Start()
     {
-        DeliveryManager.Instance.OnDeliverySucess += DeliveryManager_OnDeliverySucess;
+        DeliveryManager.Instance.OnDeliverySuccess += DeliveryManager_OnDeliverySuccess;
         DeliveryManager.Instance.OnDeliveryFailed += DeliveryManager_OnDeliveryFailed;
         Counter_Cuttings.OnAnyCut += Counter_Cuttings_OnAnyCut;
         Player_Interactions.Instance.OnPickedUpSomething += Player_OnPickedUpSomething;
@@ -46,9 +46,9 @@ public class SoundManager : MonoBehaviour
         PlaySound(SFX_AudioClips.Choping, counter_Cuttings.transform.position);
     }
 
-    private void DeliveryManager_OnDeliverySucess(object sender, EventArgs e)
+    private void DeliveryManager_OnDeliverySuccess(object sender, EventArgs e)
     {
-        PlaySound(SFX_AudioClips.DeliverySucess, Counter_Delivery.Instance.transform.position);
+        PlaySound(SFX_AudioClips.DeliverySuccess, Counter_Delivery.Instance.transform.position);
     }
 
     private void DeliveryManager_OnDeliveryFailed(object sender, EventArgs e)
@@ -66,6 +66,11 @@ public class SoundManager : MonoBehaviour
     public void playStoveWarningSound(Vector3 position)
     {
         PlaySound(SFX_AudioClips.Warning, position);
+    }
+
+    public void playAlertMessageSound()
+    {
+        PlaySound(SFX_AudioClips.Warning, Vector3.zero);
     }
 
     private void PlaySound(AudioClip audioClip, Vector3 position, float volume = 1f)

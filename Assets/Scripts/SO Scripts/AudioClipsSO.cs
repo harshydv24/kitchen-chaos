@@ -6,7 +6,7 @@ public class AudioClipsSO : ScriptableObject
     public AudioClip PlayerFootstep;
     public AudioClip ObjectPickup;
     public AudioClip ObjectDrop;
-    public AudioClip DeliverySucess;
+    public AudioClip DeliverySuccess;
     public AudioClip DeliveryFailed;
     public AudioClip StoveSizzles;
     public AudioClip Trash;

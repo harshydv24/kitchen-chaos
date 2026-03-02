@@ -16,6 +16,7 @@ public class Counter_Container : Counter_Base
         }
         else
         {
+            AlertMessagesManager.Instance.DisplayAlertMessage("Player is already holding something!");
             Debug.Log("Player is already holding something!");
         }
     }

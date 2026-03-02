@@ -15,6 +15,7 @@ public class Counter_Clear : Counter_Base
             }
             else
             {
+                AlertMessagesManager.Instance.DisplayAlertMessage("Counter is Empty!");
                 Debug.Log("Counter is Empty!");
             }
         }
@@ -40,7 +41,8 @@ public class Counter_Clear : Counter_Base
                     }
                     else
                     {
-                        Debug.Log("Counter if Full!");    
+                        AlertMessagesManager.Instance.DisplayAlertMessage("Counter is Full!");
+                        Debug.Log("Counter is Full!");    
                     }
                 }
             }

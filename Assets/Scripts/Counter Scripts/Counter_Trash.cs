@@ -19,6 +19,7 @@ public class Counter_Trash : Counter_Base
         }
         else
         {
+            AlertMessagesManager.Instance.DisplayAlertMessage("Nothing to trash!");
             Debug.Log("Nothing to trash!");
         }
     }

@@ -48,11 +48,13 @@ public class Counter_Cuttings : Counter_Base
                     }
                     else
                     {
+                        AlertMessagesManager.Instance.DisplayAlertMessage("Object can not be cutted!");
                         Debug.Log("Object can not be cutted!");
                     }
                 }
                 else
                 {
+                    AlertMessagesManager.Instance.DisplayAlertMessage("Counter is Empty!");
                     Debug.Log("Counter is Empty!");
                 }
             }
@@ -69,6 +71,7 @@ public class Counter_Cuttings : Counter_Base
                     }
                     else
                     {
+                        AlertMessagesManager.Instance.DisplayAlertMessage("Counter if Full!");
                         Debug.Log("Counter if Full!");
                     }
                 }
@@ -87,6 +90,7 @@ public class Counter_Cuttings : Counter_Base
             }
             else
             {
+                AlertMessagesManager.Instance.DisplayAlertMessage("Insufficient Money!");
                 Debug.Log("Insufficient Money!");
             }
         }
@@ -120,11 +124,13 @@ public class Counter_Cuttings : Counter_Base
             }
             else
             {
-                Debug.Log("Object already cutted or can not be cutted!");
+                AlertMessagesManager.Instance.DisplayAlertMessage("Object is already cutted or cannot be cutted!");
+                Debug.Log("Object is already cutted or cannot be cutted!");
             }
         }
         else
         {
+            AlertMessagesManager.Instance.DisplayAlertMessage("Need Kitchen Object to Cut!");
             Debug.Log("Need Kitchen Object to Cut!");
         }
     }

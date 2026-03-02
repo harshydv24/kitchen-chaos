@@ -33,10 +33,10 @@ public class GameManager : MonoBehaviour
     {
         GameInputs.Instance.OnPauseAction += GameInputs_OnPauseAction;
         GameInputs.Instance.OnInteractAction += GameInputs_OnInteractAction;
-        DeliveryManager.Instance.UpdateStats += DeliveryManager_UpdateStats;
+        DeliveryManager.Instance.OnDeliverySuccess += DeliveryManager_OnDeliverySuccess;
     }
 
-    private void DeliveryManager_UpdateStats(object sender, EventArgs e)
+    private void DeliveryManager_OnDeliverySuccess(object sender, EventArgs e)
     {
         GameIsPlayingTimer += 10f;
     }
@@ -131,10 +131,11 @@ public class GameManager : MonoBehaviour
 
     public float GetGameIsPlayingTimerNormalised()
     {
+        // doing this to get a value between 0 and 1, so we can use it for the timer UI fill amount!
         return GameIsPlayingTimer / GameIsPlayingTimerMax;
     }
 
-    public float GetGameIsPlayingTimer()
+    public float GetGameIsPlayingTimerRaw()
     {
         return GameIsPlayingTimerMax;
     }

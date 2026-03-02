@@ -12,9 +12,8 @@ public class DeliveryManager : MonoBehaviour
 
     public event EventHandler OnRecipeSpawned;
     public event EventHandler OnRecipeCompleted;
-    public event EventHandler OnDeliverySucess;
+    public event EventHandler OnDeliverySuccess;
     public event EventHandler OnDeliveryFailed;
-    public event EventHandler UpdateStats;
 
     public static DeliveryManager Instance{get; private set;}
 
@@ -91,8 +90,7 @@ public class DeliveryManager : MonoBehaviour
                     });
                     WaitingRecipesListSO.RemoveAt(i);
                     OnRecipeCompleted?.Invoke(this, EventArgs.Empty);
-                    OnDeliverySucess?.Invoke(this, EventArgs.Empty);
-                    UpdateStats?.Invoke(this, EventArgs.Empty);
+                    OnDeliverySuccess?.Invoke(this, EventArgs.Empty);
                     return;
                 }
             }

@@ -15,13 +15,14 @@ public class GameTimerUI : MonoBehaviour
     private void Start()
     {
         GameManager.Instance.OnGameStateChange += GameManager_OnGameStateChange;
-        DeliveryManager.Instance.UpdateStats += DeliveryManager_UpdateStats;
-        secounds = (int)GameManager.Instance.GetGameIsPlayingTimer();
+        DeliveryManager.Instance.OnDeliverySuccess += DeliveryManager_OnDeliverySuccess;
+        secounds = GameManager.Instance.GetGameIsPlayingTimerRaw();
         Hide();
     }
 
-    private void DeliveryManager_UpdateStats(object sender, EventArgs e)
+    private void DeliveryManager_OnDeliverySuccess(object sender, EventArgs e)
     {
+        // Adding 10 secounds for each success delivery!
         secounds += 10;
     }
 
@@ -39,14 +40,12 @@ public class GameTimerUI : MonoBehaviour
 
     private void Update()
     {
+        UpdateTimerFillAmount();
         UpdateTimerText();
-        secounds -= Time.deltaTime;
-        TimerIcon.fillAmount = GameManager.Instance.GetGameIsPlayingTimerNormalised();
-        TimerText.text = minutes.ToString("00") + ":" + secounds.ToString("00");
     }
 
     private void UpdateTimerText()
-    {
+    {   
         if(secounds > 60)
         {
             minutes++;
@@ -57,6 +56,19 @@ public class GameTimerUI : MonoBehaviour
             minutes--;
             secounds = 59;
         }
+        if(secounds <= 0 && minutes == 0)
+        {
+            secounds = 0;
+            minutes = 0;
+        }
+
+        secounds -= Time.deltaTime;
+        TimerText.text = minutes.ToString("00") + ":" + secounds.ToString("00");
+    }
+
+    private void UpdateTimerFillAmount()
+    {
+        TimerIcon.fillAmount = GameManager.Instance.GetGameIsPlayingTimerNormalised();
     }
 
     private void Show()

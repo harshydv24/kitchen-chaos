@@ -27,7 +27,7 @@ public class DeliveryStatusUI : MonoBehaviour
 
     private void Start()
     {
-        DeliveryManager.Instance.OnDeliverySucess += DeliveryManager_OnDeliverySuccess;
+        DeliveryManager.Instance.OnDeliverySuccess += DeliveryManager_OnDeliverySuccess;
         DeliveryManager.Instance.OnDeliveryFailed += DeliveryManager_OnDeliveryFailed;
         Hide();
     }

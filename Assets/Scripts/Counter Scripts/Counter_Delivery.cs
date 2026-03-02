@@ -21,11 +21,13 @@ public class Counter_Delivery : Counter_Base
             }
             else
             {
+                AlertMessagesManager.Instance.DisplayAlertMessage("Cannot Deliver this!");
                 Debug.Log("Cannot Deliver this!");
             }
         }
         else
         {
+            AlertMessagesManager.Instance.DisplayAlertMessage("Nothing to Deliver!");
             Debug.Log("Nothing to Dilvery!");
         }
     }
