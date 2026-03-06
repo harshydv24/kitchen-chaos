@@ -1,8 +1,8 @@
+using Unity.Netcode;
 using UnityEngine;
 
-public class Player_Controler : MonoBehaviour
+public class Player_Controler : NetworkBehaviour
 {
-    [SerializeField] private GameInputs gameInputs;
     [SerializeField] private float MoveSpeed = 7f;
     [SerializeField] private float RotationSpeed = 15f;
 
@@ -11,12 +11,13 @@ public class Player_Controler : MonoBehaviour
 
     private void Update()
     {
+        if(!IsOwner) return;
         HandleMovement();
     }
 
     private void HandleMovement()
     {
-        Vector2 InputVector = gameInputs.GetMovementVector();
+        Vector2 InputVector = GameInputs.Instance.GetMovementVector();
         Vector3 MoveDir = new Vector3(InputVector.x, 0f, InputVector.y);
 
         float MoveDistance = MoveSpeed * Time.deltaTime;

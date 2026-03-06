@@ -1,14 +1,14 @@
 using System;
+using Unity.Netcode;
 using UnityEngine;
 
-public class Player_Interactions : MonoBehaviour, IKitchenObjectParent
+public class Player_Interactions : NetworkBehaviour, IKitchenObjectParent
 {
     public static Player_Interactions Instance { get; private set; }
 
     public event EventHandler OnPickedUpSomething;
 
     // Public Variables.
-    [SerializeField] private GameInputs gameInputs;
     [SerializeField] private LayerMask CountersLayerMask;
     [SerializeField] private Transform KitchenObjectHoldPoint;
 
@@ -25,17 +25,13 @@ public class Player_Interactions : MonoBehaviour, IKitchenObjectParent
 
     private void Awake()
     {
-        if(Instance != null)
-        {
-            Debug.LogError("There is more than one Player_Interactions instance!");
-        }
         Instance = this;
     }
 
     private void Start()
     {
-        gameInputs.OnInteractAction += GameInputs_OnInteractAction;
-        gameInputs.OnInteractAlternateAction += GameInputs_OnInteractAlternateAction;
+        GameInputs.Instance.OnInteractAction += GameInputs_OnInteractAction;
+        GameInputs.Instance.OnInteractAlternateAction += GameInputs_OnInteractAlternateAction;
     }
 
     private void GameInputs_OnInteractAlternateAction(object sender, System.EventArgs e)
@@ -58,6 +54,7 @@ public class Player_Interactions : MonoBehaviour, IKitchenObjectParent
 
     private void Update()
     {
+        if(!IsOwner) return;
         HandleInteractions();
     }
 

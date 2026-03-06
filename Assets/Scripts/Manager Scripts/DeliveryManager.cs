@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
-public class DeliveryManager : MonoBehaviour
+public class DeliveryManager : NetworkBehaviour
 {
     public event EventHandler<UpdateMoneyAmountEventArgs> UpdateMoneyAmount;
     public class UpdateMoneyAmountEventArgs : EventArgs
@@ -41,12 +42,19 @@ public class DeliveryManager : MonoBehaviour
             RecipeSpawnTime = RecipeSpawnTimeMax;
             if(GameManager.Instance.IsGameIsPlayingActive() && WaitingRecipesListSO.Count < MaxWaitingRecipes)
             {    
-                RecipesSO CurrentRecipesSO = RecipesList.recipesListSO[UnityEngine.Random.Range(0, RecipesList.recipesListSO.Count)];
-                Debug.Log(CurrentRecipesSO.RecipeName);
-                WaitingRecipesListSO.Add(CurrentRecipesSO); 
-                OnRecipeSpawned?.Invoke(this, EventArgs.Empty);
+                int watiningRecipesSOIndex = UnityEngine.Random.Range(0, RecipesList.recipesListSO.Count); 
+                SpawnNewWaitingRecipeClientRpc(watiningRecipesSOIndex);
             }
         }
+    }
+
+    [ClientRpc]
+    private void SpawnNewWaitingRecipeClientRpc(int watiningRecipesSOIndex)
+    {
+        RecipesSO CurrentRecipesSO = RecipesList.recipesListSO[watiningRecipesSOIndex];
+        WaitingRecipesListSO.Add(CurrentRecipesSO);
+        OnRecipeSpawned?.Invoke(this, EventArgs.Empty);
+        Debug.Log(CurrentRecipesSO.RecipeName);
     }
 
     public void DeliverRecipe(KitchenObject_Plate kitchenObjectPlate)
@@ -83,19 +91,45 @@ public class DeliveryManager : MonoBehaviour
                 if (PlateContentMatchesRecipe)
                 {
                     // Delivery Sucess.
-                    TotalOrdersDeliverd++;
-                    UpdateMoneyAmount?.Invoke(this, new UpdateMoneyAmountEventArgs
-                    {
-                        MoneyAmount = WaitingRecipesListSO[i].RecipePrice
-                    });
-                    WaitingRecipesListSO.RemoveAt(i);
-                    OnRecipeCompleted?.Invoke(this, EventArgs.Empty);
-                    OnDeliverySuccess?.Invoke(this, EventArgs.Empty);
+                    DeliverCorrectRecipeServerRpc(i);
                     return;
                 }
             }
         }
         // Delivery Failed.
+        DeliverIncorrectRecipeServerRpc();
+    }
+
+    // Syncing the delivery success to all clients.
+    [ServerRpc(RequireOwnership = false)]
+    private void DeliverCorrectRecipeServerRpc(int WaitingRecipesSOListIndex)
+    {
+        DeliverCorrectRecipeClientRpc(WaitingRecipesSOListIndex);
+    }
+
+    [ClientRpc]
+    private void DeliverCorrectRecipeClientRpc(int WaitingRecipesSOListIndex)
+    {
+        TotalOrdersDeliverd++;
+        UpdateMoneyAmount?.Invoke(this, new UpdateMoneyAmountEventArgs
+        {
+            MoneyAmount = WaitingRecipesListSO[WaitingRecipesSOListIndex].RecipePrice
+        });
+        WaitingRecipesListSO.RemoveAt(WaitingRecipesSOListIndex);
+        OnRecipeCompleted?.Invoke(this, EventArgs.Empty);
+        OnDeliverySuccess?.Invoke(this, EventArgs.Empty);
+    }
+
+    // Syncing the delivery failed to all clients.
+    [ServerRpc(RequireOwnership = false)]
+    private void DeliverIncorrectRecipeServerRpc()
+    {
+        DeliverIncorrectRecipeClientRpc();
+    }
+
+    [ClientRpc]
+    private void DeliverIncorrectRecipeClientRpc()
+    {
         UpdateMoneyAmount?.Invoke(this, new UpdateMoneyAmountEventArgs
         {
             MoneyAmount = DecMoneyAmount
